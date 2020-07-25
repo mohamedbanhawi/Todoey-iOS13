@@ -98,7 +98,7 @@ class CategoryViewController: UITableViewController {
     
     
     // MARK:- TableView Data Delegate methods
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         selectedIndexPath = indexPath
         tableView.deselectRow(at: indexPath, animated: true)

@@ -134,31 +134,24 @@ class TodoListViewController: UITableViewController {
 
 // MARK: - UISearchBarDelegate
 
-//extension TodoListViewController: UISearchBarDelegate {
-//
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//
-//        let request: NSFetchRequest<Item> = Item.fetchRequest()
-//
-//        // a filter for the query
-//        // case insensitve
-//        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text ?? "")
-//
-//        // how to sort data
-//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//
-//        loadItems(with: request)
-//
-//    } // end of searchBarSearchButtonClicked
-//
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchText.count == 0 {
-//            loadItems()
-//            DispatchQueue.main.async {
-//                searchBar.resignFirstResponder() // go to the background
-//            }
-//        }
-//    }
-//
-//}
+extension TodoListViewController: UISearchBarDelegate {
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text ?? "")
+        itemArray = selectedCategory?.items.filter(predicate)
+        tableView.reloadData()
+
+    } // end of searchBarSearchButtonClicked
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count == 0 {
+            loadItems()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder() // go to the background
+            }
+        }
+    }
+
+}
 
